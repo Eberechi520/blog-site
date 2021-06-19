@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Send a message {% endblock title %}
+
+
+
+{% block content %}
+
+<link href='{% static "login.css" %}' rel="stylesheet">
+
+<div class="wrapper">
+    
+    <form method='post' action="." class="form-signin">
+    
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <h2 class="form-signin-heading">SEND A MESSAGE</h2>
+
+        <input type="text" class="form-control" name="name" placeholder="Name" required="" autofocus=""/>
+        <br>
+
+        <input type="email" class="form-control" name="email" placeholder="E-mail" required="" autofocus=""/>
+        <br>
+
+        <input type="textarea" class="form-control" name="message" placeholder="Enter Message" required="" autofocus=""/>
+        <br>
+
+        
+        <button class="btn btn-lg btn-success btn-block" type="submit">Send Message</button>
+        <br>
+    </form>
+</div>
+
+{% endblock content %}

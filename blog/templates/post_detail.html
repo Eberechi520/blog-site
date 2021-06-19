@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <br><br>
+    <h3>{{ post.title | capfirst }}</h3><br>
+    <p> {{ post.body }}</p>
+
+    {% with comments.count as num_of_comments%}
+    <h3> {{ num_of_comments }} comment{{ num_of_comments|pluralize }} </h3>
+    {% endwith %}
+
+    {% for comment in comments %}
+    <div class="card" style= "width:50%;">
+        
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+            <p>{{comment.comment}}</p>
+            <footer class="blockquote-footer">By <cite title="Source Title">{{ comment.f_name }} {{comment.l_name }}</cite></footer>
+            </blockquote>
+        </div>
+    </div><br>
+    {% endfor %}
+
+    <h3>Comment Here</h3>
+    <form method='POST', action =".">
+        {% csrf_token %}
+        <div class="mb-3", style= "width:50%;">
+            <label for="f_name" class="form-label">Enter your first name:</label>
+            <input type="text" class="form-control" id="f_name" aria-describedby="f_name", name='f_name' required>
+        </div><br>
+
+        <div class="mb-3", style= "width:50%;">
+            <label for="l_name" class="form-label">Enter your last name:</label>
+            <input type="text" class="form-control" id="l_name" aria-describedby="l_name", name='l_name' required>
+        </div><br>
+        
+        <div class="mb-3", style= "width:50%;">
+            <label for="comment" class="form-label">Enter your comment:</label>
+            <input type="textarea" class="form-control" id="comment" aria-describedby="comment", name='comment' required>
+        </div><br>
+        <button type="submit" class="btn btn-primary">Comment</button>
+    </form>
+
+
+
+{% endblock content %}
